@@ -33,7 +33,7 @@ int main()
 
 	cout << "Деление"<<endl;
 	c=a/b;
-	cout << "Результат"<<endl;
+	cout << "Результат деления"<<endl;
 	cout<<c<<endl;
 
 	cout<<"Сумма нечетных в 1 матрице: "<<a.Sum();

@@ -104,33 +104,47 @@ public:
 		
 		TMatrix rez(Size);
 		TMatrix E (Size);
-		T *mas= new T[Size];
+		T count=0;
+		T *countN;
+		countN=new T[Size];
+		rez=mt;
 		
 		for (int i = 0; i < Size; i++)
 		for (int j = i; j < Size; j++)
 		{
-			rez.pVector[i][j] = 0;
 			if (i==j)
 				E.pVector[i][j]=1;
 			else
 			E.pVector[i][j]=0;
-
 		}
 
 		for (int i = 0; i < Size; i++)
 		
 		{
-			mas[i]=1/mt.pVector[i][i];
-			for(int m=i;m<Size; m++)	
-		E.pVector[i][m]=E.pVector[i][m] * (mas[i]);
 		
+			count=(1/rez.pVector[i][i]);
+
+			for(int m=i;m<Size; m++)
+			{
+		E.pVector[i][m]=E.pVector[i][m] * count;
+		rez.pVector[i][m]=rez.pVector[i][m] * count;
+			}
+
+		for (int k=0;k<i;k++)			
+		countN[k]=rez.pVector[k][i];
 		
 		for (int j = 0; j < i; j++)
 		for (int n = i; n<Size; n++)
-	
-			E.pVector[j][n]=E.pVector[j][n] - (E.pVector[i][n] * (mt.pVector[j][i]*mas[j]));
+			{
+
+			rez.pVector[j][n]=rez.pVector[j][n] - (rez.pVector[i][n] * countN[j]);
+			E.pVector[j][n]=E.pVector[j][n] - (E.pVector[i][n] * countN[j]);
+
+			}
 		}
-		cout<<"Обратная матрица b: "<<endl<<E<<endl;
+				
+		cout<<" матрица преобразования: "<<endl<<rez<<endl;
+		cout<<"Обратная матрица к b: "<<endl<<E<<endl;
 			return (operator*(E));
 	}
 
